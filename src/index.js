@@ -8,7 +8,6 @@ const webcam = new Webcam(document.getElementById('webcam'));
 
 (async function main() {
   try {
-    ga();
     model = await downloadModel();
 
     alert("Just a heads up! We'll ask to access your webcam so that we can " +
@@ -109,13 +108,4 @@ function showError() {
   const elem = document.getElementById('error-message');
   elem.style.display = 'block';
   doneLoading();
-}
-
-function ga() {
-  if (process.env.UA) {
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', process.env.UA);
-  }
 }
