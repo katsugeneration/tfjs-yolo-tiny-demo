@@ -41,14 +41,15 @@ async function run() {
 
     console.log('tf.memory(): ', tf.memory());
 
-    clearRects();
+    clearImages();
     boxes.forEach(box => {
       const {
         top, left, bottom, right, classProb, className,
       } = box;
 
-      drawRect(left, top, right-left, bottom-top,
-        `${className} Confidence: ${Math.round(classProb * 100)}%`)
+      if (className === 'person') {
+        drawImage("./target.png", left-64, top-64)
+      }
     });
 
     await tf.nextFrame();
@@ -56,6 +57,22 @@ async function run() {
 }
 
 const webcamElem = document.getElementById('webcam-wrapper');
+const webcamMainElem = document.getElementById('webcam');
+
+function drawImage(src, x, y) {
+  const img = document.createElement('img');
+  img.src = src;
+  img.classList.add('img-target');
+  img.style.cssText = `top: ${y + webcamMainElem.offsetTop + webcamMainElem.offsetHeight / 2}; left: ${x + webcamMainElem.offsetLeft + webcamMainElem.offsetWidth / 2}; position: absolute; z-index: 10;`;
+  webcamElem.appendChild(img);
+}
+
+function clearImages() {
+  const images = document.getElementsByClassName('img-target');
+  while(images[0]) {
+    images[0].parentNode.removeChild(images[0]);
+  }
+}
 
 function drawRect(x, y, w, h, text = '', color = 'red') {
   const rect = document.createElement('div');
