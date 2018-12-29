@@ -5,16 +5,101 @@ import { Webcam } from './webcam';
 
 let model;
 const webcam = new Webcam(document.getElementById('webcam'));
+const class_selector = document.getElementById('class-selector');
+
+const class_names = [
+  'person',
+  'bicycle',
+  'car',
+  'motorbike',
+  'aeroplane',
+  'bus',
+  'train',
+  'truck',
+  'boat',
+  'traffic light',
+  'fire hydrant',
+  'stop sign',
+  'parking meter',
+  'bench',
+  'bird',
+  'cat',
+  'dog',
+  'horse',
+  'sheep',
+  'cow',
+  'elephant',
+  'bear',
+  'zebra',
+  'giraffe',
+  'backpack',
+  'umbrella',
+  'handbag',
+  'tie',
+  'suitcase',
+  'frisbee',
+  'skis',
+  'snowboard',
+  'sports ball',
+  'kite',
+  'baseball bat',
+  'baseball glove',
+  'skateboard',
+  'surfboard',
+  'tennis racket',
+  'bottle',
+  'wine glass',
+  'cup',
+  'fork',
+  'knife',
+  'spoon',
+  'bowl',
+  'banana',
+  'apple',
+  'sandwich',
+  'orange',
+  'broccoli',
+  'carrot',
+  'hot dog',
+  'pizza',
+  'donut',
+  'cake',
+  'chair',
+  'sofa',
+  'pottedplant',
+  'bed',
+  'diningtable',
+  'toilet',
+  'tvmonitor',
+  'laptop',
+  'mouse',
+  'remote',
+  'keyboard',
+  'cell phone',
+  'microwave',
+  'oven',
+  'toaster',
+  'sink',
+  'refrigerator',
+  'book',
+  'clock',
+  'vase',
+  'scissors',
+  'teddy bear',
+  'hair drier',
+  'toothbrush',
+];
+
+for (var c of class_names) {
+  var opt = document.createElement("option");
+  opt.value = c;
+  opt.text = c;
+  class_selector.add(opt);
+}
 
 (async function main() {
   try {
     model = await downloadModel();
-
-    alert("Just a heads up! We'll ask to access your webcam so that we can " +
-      "detect objects in semi-real-time. \n\nDon't worry, we aren't sending " +
-      "any of your images to a remote server, all the ML is being done " +
-      "locally on device, and you can check out our source code on Github.");
-
     await webcam.setup();
 
     doneLoading();
@@ -46,8 +131,8 @@ async function run() {
         top, left, bottom, right, classProb, className,
       } = box;
 
-      if (className === 'person') {
-        drawImage("./target.png", left-64, top-64)
+      if (className === class_selector.value) {
+        drawImage("./target.png", left+(right-left)/2-64, top+(bottom-top)/2-64)
       }
     });
 
@@ -62,7 +147,7 @@ function drawImage(src, x, y) {
   const img = document.createElement('img');
   img.src = src;
   img.classList.add('img-target');
-  img.style.cssText = `top: ${y + webcamMainElem.offsetTop + webcamMainElem.offsetHeight / 2}; left: ${x + webcamMainElem.offsetLeft + webcamMainElem.offsetWidth / 2}; position: absolute; z-index: 10;`;
+  img.style.cssText = `top: ${y}; left: ${x}; position: absolute; z-index: 10;`;
   webcamElem.appendChild(img);
 }
 

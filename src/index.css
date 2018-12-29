@@ -26,6 +26,14 @@ html, body {
   justify-content: center;
   overflow: hidden;
 }
+#class-selector {
+  margin: 5 auto;
+  width: 416px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
 .rect {
   position: absolute;
   border: 1px solid red;
@@ -65,7 +73,7 @@ html, body {
   text-align: center;
   max-width: 450px;
   margin: 25px auto;
-  color: #00c13f;
+  color: #000001;
   line-height: 1.5;
 }
 #loading-message {
