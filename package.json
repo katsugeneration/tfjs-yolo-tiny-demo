@@ -15,7 +15,7 @@
     "parcel-bundler": "^1.7.0"
   },
   "scripts": {
-    "build": "cp src/assets/target.png dist/target.png && rm -rf ./dist && parcel build src/index.html --public-url='/tfjs-yolo-tiny-demo/'",
+    "build": "rm -rf ./docs && mkdir docs && cp src/assets/target.png docs/target.png && parcel build src/index.html -d docs --public-url '/tfjs-yolo-tiny-targeting-object/'",
     "serve": "cp src/assets/target.png dist/target.png && parcel src/index.html"
   }
 }
